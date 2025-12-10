@@ -1,3 +1,9 @@
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple/
+
+torch>=2.1.2
+torchvision>=0.16.2
+torchaudio>=2.1.2
 fastapi>=0.115.0
 uvicorn>=0.30.0
 cohere>=5.10.0
