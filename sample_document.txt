@@ -1,0 +1,27 @@
+# Sample Document for RAG Testing
+
+## Introduction
+This is a sample document created to test the RAG (Retrieval-Augmented Generation) chatbot functionality. This document will be ingested into the Qdrant vector database and used as context for answering user queries.
+
+## About RAG Systems
+RAG systems combine the power of large language models with the ability to retrieve relevant information from external knowledge sources. This allows the model to answer questions based on specific documents provided by the user.
+
+## How RAG Works
+1. Documents are processed and converted into vector embeddings
+2. These embeddings are stored in a vector database (Qdrant in our case)
+3. When a query is made, it's converted to an embedding
+4. The system finds the most similar document chunks in the vector database
+5. These chunks are provided as context to the LLM to generate a response
+
+## Example Use Cases
+- Customer support: Answering questions based on company documentation
+- Research: Finding relevant information in academic papers
+- Business: Processing internal documentation for answers
+
+## Technical Details
+- Embeddings are generated using Cohere's embed-english-v3.0 model
+- Vector database: Qdrant
+- Language model: Cohere's command-r-plus
+
+## Conclusion
+This sample document provides enough context to test the RAG functionality. You should be able to ask questions about RAG systems, the process, and technical implementation.
