@@ -22,19 +22,19 @@ class CohereManager:
 
     def generate_response(self, prompt: str) -> str:
         """
-        Generate a response using Cohere's generation model
+        Generate a response using Cohere's chat model
         """
-        response = self.client.generate(
+        response = self.client.chat(
             model=Config.COHERE_GENERATION_MODEL,
-            prompt=prompt,
+            message=prompt,
             max_tokens=Config.MAX_TOKENS,
             temperature=Config.TEMPERATURE
         )
 
-        if response.generations:
-            return response.generations[0].text.strip()
+        if response.text:
+            return response.text.strip()
         else:
-            raise Exception("No generation returned from Cohere")
+            raise Exception("No response returned from Cohere")
 
     def embed_query(self, query: str) -> list[float]:
         """

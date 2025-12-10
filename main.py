@@ -50,9 +50,23 @@ async def upload_document(file: UploadFile = File(...)):
     Upload a document (PDF, TXT) to be indexed for RAG
     """
     try:
+        # Validate file is provided
+        if not file:
+            raise HTTPException(status_code=400, detail="No file provided")
+
+        # Validate file size (optional but recommended)
+        # Move to the end to get file size
+        await file.seek(0, 2)  # Seek to end of file
+        file_size = await file.tell()  # Get current position (file size)
+        await file.seek(0)  # Reset to beginning of file
+
+        if file_size == 0:
+            raise HTTPException(status_code=400, detail="Uploaded file is empty")
+
         # Save uploaded file temporarily
         with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as temp_file:
-            temp_file.write(await file.read())
+            content = await file.read()
+            temp_file.write(content)
             temp_path = temp_file.name
 
         # Process and store document using RAG service
@@ -63,6 +77,9 @@ async def upload_document(file: UploadFile = File(...)):
 
         return result
 
+    except HTTPException:
+        # Re-raise HTTP exceptions
+        raise
     except Exception as e:
         logger.error(f"Error processing document: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing document: {str(e)}")
